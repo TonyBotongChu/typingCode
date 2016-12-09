@@ -1,20 +1,23 @@
 package application;
 
 import java.io.*;
+import java.util.ArrayList;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.HPos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.scene.text.Text;
 import application.view.*;
 
 public class Main extends Application
 {
 	private Stage primaryStage;
 	private BorderPane rootLayout;
-	
+	private ArrayList<String> sourceFile = new ArrayList<String>();
+
 	public BorderPane getRootLayout()
 	{
 		return rootLayout;
@@ -62,24 +65,21 @@ public class Main extends Application
 	{
 		return primaryStage;
 	}
-	
+
 	public void loadDataFromFile(File file)
 	{
-		// For test only. I'll rewrite this function later.
-		GridPane gp = (GridPane)rootLayout.getCenter();
+		GridPane gp = (GridPane) rootLayout.getCenter();
 		gp.getChildren().clear();
+		sourceFile.clear();
 		BufferedReader reader = null;
+
 		try
-		{// need to rewrite
+		{
 			reader = new BufferedReader(new FileReader(file));
 			String tempString = null;
-			int line = 1;
 			while ((tempString = reader.readLine()) != null)
 			{
-				Text t = new Text(tempString);
-				gp.add(t, 0, line);
-				System.out.println("line " + line + ": " + tempString);
-				line++;
+				sourceFile.add(tempString);
 			}
 			reader.close();
 		}
@@ -101,7 +101,32 @@ public class Main extends Application
 				}
 			}
 		}
+		try
+		{
+			refreshCodeArea(0);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 		return;
+	}
+
+	private void refreshCodeArea(int previousline) throws Exception
+	{
+		int line = 10;
+		GridPane gp = (GridPane) rootLayout.getCenter();
+		gp.getChildren().clear();
+		for (int i = 0; i < line && i < sourceFile.size(); i++)
+		{
+			String currentLine = sourceFile.get(i + previousline);
+			for (int j = 0; j < currentLine.length(); j++)
+			{
+				Label t = new Label(String.valueOf(currentLine.charAt(j)));
+				GridPane.setHalignment(t, HPos.CENTER);
+				gp.add(t, j, i);
+			}
+		}
 	}
 
 	public static void main(String[] args)
