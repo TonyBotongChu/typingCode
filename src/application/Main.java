@@ -117,7 +117,7 @@ public class Main extends Application
 		int line = 10;
 		GridPane gp = (GridPane) rootLayout.getCenter();
 		gp.getChildren().clear();
-		for (int i = 0; i < line && i < sourceFile.size(); i++)
+		for (int i = 0; i < line && i+previousline < sourceFile.size(); i++)
 		{
 			String currentLine = sourceFile.get(i + previousline);
 			for (int j = 0; j < currentLine.length(); j++)
