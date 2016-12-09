@@ -1,11 +1,11 @@
 package application.view;
 
 import javafx.fxml.FXML;
+
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import application.Main;
 import java.io.*;
-import javafx.stage.*;
 import javafx.stage.FileChooser;
 
 public class RootLayoutController
@@ -23,7 +23,7 @@ public class RootLayoutController
 		FileChooser fileChooser = new FileChooser();
 		File file = fileChooser.showOpenDialog(mainApp.getPrimaryStage());
 		if (file != null)
-			mainApp.loadDataFromFile();
+			mainApp.loadDataFromFile(file);
 	}
 
 	@FXML

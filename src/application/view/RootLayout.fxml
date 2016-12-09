@@ -29,18 +29,11 @@
       </MenuBar>
    </top>
    <right>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="571.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox prefHeight="571.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <Label text="Label" />
-                  <Button mnemonicParsing="false" text="Button" />
-               </children>
-            </VBox>
+            <Label text="Label" />
+            <Button mnemonicParsing="false" text="Button" />
          </children>
-      </AnchorPane>
+      </VBox>
    </right>
-   <center>
-      <TextArea prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-   </center>
 </BorderPane>
