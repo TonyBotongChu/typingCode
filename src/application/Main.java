@@ -1,3 +1,11 @@
+/*
+ * This class is the main class of the whole application.
+ * Methods in this file is for core functions only.
+ * Be sure not to pile up all your functions here.
+ * 
+ * By Zhu Botong
+ */
+
 package application;
 
 import java.io.*;
@@ -10,13 +18,24 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
+import application.model.Settings;
 import application.view.*;
 
 public class Main extends Application
 {
 	private Stage primaryStage;
 	private BorderPane rootLayout;
+	// this ArrayList is to store the source file in lines
 	private ArrayList<String> sourceFile = new ArrayList<String>();
+
+	// private VirtualCursor cursor = new VirtualCursor(this);
+
+	Settings settings = new Settings();
+
+	public Stage getPrimaryStage()
+	{
+		return primaryStage;
+	}
 
 	public BorderPane getRootLayout()
 	{
@@ -28,11 +47,9 @@ public class Main extends Application
 	{
 
 		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle("demo");
+		this.primaryStage.setTitle("typingCode - demo");
 
 		initRootLayout();
-
-		// showMainSubWin();
 	}
 
 	public void initRootLayout()
@@ -45,6 +62,8 @@ public class Main extends Application
 			rootLayout = (BorderPane) loader.load();
 
 			rootLayout.setCenter(new GridPane());
+			// This code is to show the border of code area. Will be deleted if
+			// necessary.
 			rootLayout.getCenter().setStyle("-fx-border-color:black");
 
 			RootLayoutController controller = loader.getController();
@@ -61,14 +80,10 @@ public class Main extends Application
 		}
 	}
 
-	public Stage getPrimaryStage()
-	{
-		return primaryStage;
-	}
-
 	public void loadDataFromFile(File file)
 	{
 		GridPane gp = (GridPane) rootLayout.getCenter();
+		// clear the GridPane and FileReader to avoid conflicts
 		gp.getChildren().clear();
 		sourceFile.clear();
 		BufferedReader reader = null;
@@ -79,7 +94,10 @@ public class Main extends Application
 			String tempString = null;
 			while ((tempString = reader.readLine()) != null)
 			{
+				tempString += "\n";
 				sourceFile.add(tempString);
+				// code for debug only, please commit it off before release
+				// System.out.print(tempString);
 			}
 			reader.close();
 		}
@@ -101,23 +119,16 @@ public class Main extends Application
 				}
 			}
 		}
-		try
-		{
-			refreshCodeArea(0);
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+		showCurrentPage(0);
+
 		return;
 	}
 
-	private void refreshCodeArea(int previousline) throws Exception
-	{
-		int line = 10;
+	private void showCurrentPage(int previousline)
+	{// the int previousline is the num of lines already read by the program
 		GridPane gp = (GridPane) rootLayout.getCenter();
 		gp.getChildren().clear();
-		for (int i = 0; i < line && i+previousline < sourceFile.size(); i++)
+		for (int i = 0; i < settings.getLine() && i + previousline < sourceFile.size(); i++)
 		{
 			String currentLine = sourceFile.get(i + previousline);
 			for (int j = 0; j < currentLine.length(); j++)
@@ -126,6 +137,19 @@ public class Main extends Application
 				GridPane.setHalignment(t, HPos.CENTER);
 				gp.add(t, j, i);
 			}
+		}
+		setCursorLocation(gp, 0, 0, true);
+	}
+	
+	private void setCursorLocation(GridPane gp, final int row, final int column, boolean isInputCorrect)
+	{
+		if (isInputCorrect)
+		{
+			VirtualCursor.getNodeByRowColumnIndex(row, column, gp).setStyle("-fx-background-color:green");;
+		}
+		else
+		{
+			VirtualCursor.getNodeByRowColumnIndex(0, 0, gp).setStyle("-fx-background-color:red");;
 		}
 	}
 

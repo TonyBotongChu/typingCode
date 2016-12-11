@@ -1,10 +1,15 @@
 package application.view;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.GridPane;
 import application.Main;
+import application.VirtualCursor;
+import application.model.Settings;
+
 import java.io.*;
 import javafx.stage.FileChooser;
 
@@ -12,11 +17,22 @@ public class RootLayoutController
 {
 	private Main mainApp;
 
+	// Is called by the main application to give a reference back to itself.
 	public void setMainApp(Main mainApp)
 	{
 		this.mainApp = mainApp;
 	}
+/*
+	@FXML
+	private GridPane codeArea;
 
+	private VirtualCursor cursor = new VirtualCursor(codeArea);
+
+	public void initCursor()
+	{
+		cursor.resetCursorLocation();
+	}
+*/
 	@FXML
 	private void OpenResourceFile()
 	{
@@ -31,7 +47,7 @@ public class RootLayoutController
 	{
 		System.exit(0);
 	}
-	
+
 	@FXML
 	private void handleAbout()
 	{
@@ -42,11 +58,11 @@ public class RootLayoutController
 
 		alert.showAndWait();
 	}
-	
+
 	private static String getAuthor()
 	{
 		String name = "Zhu Botong, Wang Zhaopu.\n";
-		String address = "Colleage of Software Engineering, BUAA.\n";
-		return name+"\n"+address;
+		String address = "Colleage of Software Engineering, BUAA.\n" + "Beijing, China.\n";
+		return name + "\n" + address;
 	}
 }
