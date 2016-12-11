@@ -45,7 +45,7 @@ public class VirtualCursor
 		this.column = column;
 	}
 	
-	private void moveCursor()
+	public void moveCursor()
 	{
 		// to be written later
 		Node temp = getNodeByRowColumnIndex(getLocation_row(), getLocation_col());
