@@ -22,17 +22,15 @@ public class RootLayoutController
 	{
 		this.mainApp = mainApp;
 	}
-/*
-	@FXML
-	private GridPane codeArea;
 
-	private VirtualCursor cursor = new VirtualCursor(codeArea);
-
-	public void initCursor()
-	{
-		cursor.resetCursorLocation();
+	private void moveCursor()
+	{		
+		GridPane gp = (GridPane) mainApp.getRootLayout().getCenter();
+		VirtualCursor cursor = new VirtualCursor(gp);
+		//System.out.println(mainApp.getRootLayout().getCenter());
+		cursor.moveCursor();
 	}
-*/
+
 	@FXML
 	private void OpenResourceFile()
 	{
@@ -64,5 +62,16 @@ public class RootLayoutController
 		String name = "Zhu Botong, Wang Zhaopu.\n";
 		String address = "Colleage of Software Engineering, BUAA.\n" + "Beijing, China.\n";
 		return name + "\n" + address;
+	}
+
+	@FXML
+	private Button pause;
+
+	@FXML
+	private void startTimer()
+	{
+		// This function will be used to start the timer. But at present I will
+		// use it to do something else.
+		moveCursor();
 	}
 }

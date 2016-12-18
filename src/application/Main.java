@@ -28,7 +28,7 @@ public class Main extends Application
 	// this ArrayList is to store the source file in lines
 	private ArrayList<String> sourceFile = new ArrayList<String>();
 
-	// private VirtualCursor cursor = new VirtualCursor(this);
+	//private VirtualCursor cursor = new VirtualCursor(this);
 
 	Settings settings = new Settings();
 
@@ -40,6 +40,11 @@ public class Main extends Application
 	public BorderPane getRootLayout()
 	{
 		return rootLayout;
+	}
+	
+	public ArrayList<String> getSourceFile()
+	{
+		return sourceFile;
 	}
 
 	@Override
@@ -69,6 +74,8 @@ public class Main extends Application
 			RootLayoutController controller = loader.getController();
 			controller.setMainApp(this);
 
+			showWelcomeWords();
+			
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
@@ -126,30 +133,43 @@ public class Main extends Application
 
 	private void showCurrentPage(int previousline)
 	{// the int previousline is the num of lines already read by the program
+		//System.out.println(Settings.getLine());
+		VirtualCursor.thisPage_line = 0;
 		GridPane gp = (GridPane) rootLayout.getCenter();
 		gp.getChildren().clear();
+		gp.requestFocus();
 		for (int i = 0; i < settings.getLine() && i + previousline < sourceFile.size(); i++)
 		{
 			String currentLine = sourceFile.get(i + previousline);
 			for (int j = 0; j < currentLine.length(); j++)
 			{
 				Label t = new Label(String.valueOf(currentLine.charAt(j)));
+				t.setStyle("-fx-background-color: transparent");
 				GridPane.setHalignment(t, HPos.CENTER);
 				gp.add(t, j, i);
 			}
+			VirtualCursor.thisPage_line++;
 		}
 		setCursorLocation(gp, 0, 0, true);
 	}
 	
-	private void setCursorLocation(GridPane gp, final int row, final int column, boolean isInputCorrect)
+	private void showWelcomeWords()
+	{
+		sourceFile.clear();
+		sourceFile.add("Welcome\n");
+		sourceFile.add("Words");
+		showCurrentPage(0);
+	}
+	
+	public void setCursorLocation(GridPane gp, final int row, final int column, boolean isInputCorrect)
 	{
 		if (isInputCorrect)
 		{
-			VirtualCursor.getNodeByRowColumnIndex(row, column, gp).setStyle("-fx-background-color:green");;
+			VirtualCursor.getNodeByRowColumnIndex(row, column, gp).setStyle("-fx-background-color:green");
 		}
 		else
 		{
-			VirtualCursor.getNodeByRowColumnIndex(0, 0, gp).setStyle("-fx-background-color:red");;
+			VirtualCursor.getNodeByRowColumnIndex(row, column, gp).setStyle("-fx-background-color:red");
 		}
 	}
 
