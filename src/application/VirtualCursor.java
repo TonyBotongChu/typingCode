@@ -14,19 +14,11 @@ public class VirtualCursor
 {
 	private static int row = 0;
 	private static int column = 0;
-	
+
 	public static int thisPage_line;
 
-//	private Main mainApp;
-	
-	private GridPane gridPane;
-//
-//	public VirtualCursor(Main mainApp)
-//	{
-//		this.mainApp = mainApp;
-//		gridPane = (GridPane)mainApp.getRootLayout().getCenter();
-//	}
-	
+	private static GridPane gridPane;
+
 	public VirtualCursor(GridPane gp)
 	{
 		this.gridPane = gp;
@@ -58,20 +50,36 @@ public class VirtualCursor
 	{
 		this.column = column;
 	}
+	
+	public boolean endOfLine()
+	{
+		return getNodeByRowColumnIndex(getLocation_row(), getLocation_col() + 1) == null;
+	}
+	
+	public void removeCursor()
+	{
+		Node temp = getNodeByRowColumnIndex(getLocation_row(), getLocation_col());
+		temp.setStyle("-fx-background-color: transparent");
+	}
+	
+	public void showCursor()
+	{
+		Node temp = getNodeByRowColumnIndex(getLocation_row(), getLocation_col());
+		temp.setStyle("-fx-background-color:green");
+	}
 
 	public void moveCursor()
 	{
-		// to be written later
 		boolean isPageEnd = false;
-		Node temp = getNodeByRowColumnIndex(getLocation_row(), getLocation_col());
+		
 		// System.out.println(temp);
-		temp.setStyle("-fx-background-color: transparent");
+		removeCursor();
 
-		if (getNodeByRowColumnIndex(getLocation_row(), getLocation_col() + 1) == null)
+		if (endOfLine())
 		{
 			row++;
-//			System.out.println("row"+row);
-//			System.out.println("line"+thisPage_line);
+			// System.out.println("row"+row);
+			// System.out.println("line"+thisPage_line);
 			if (row >= Settings.getLine() || row >= thisPage_line)
 			{
 				isPageEnd = true;
@@ -84,7 +92,53 @@ public class VirtualCursor
 			column++;
 		}
 		if (!isPageEnd)
-			getNodeByRowColumnIndex(row, column, gridPane).setStyle("-fx-background-color:green");
+			showCursor();
+	}
+
+	public void moveCursor_backforward()
+	{
+		// to be written later
+
+		removeCursor();
+		if (getLocation_col() <= 0)
+		{
+			if (getLocation_row() <= 0)
+			{
+				showCursor();
+				return;
+			}
+			else
+			{
+				row--;
+				column = 0;
+				while (getNodeByRowColumnIndex(getLocation_row(), getLocation_col() + 1) != null)
+				{
+					column++;
+				}
+			}
+		}
+		else
+		{
+			column--;
+		}
+		showCursor();
+	}
+
+	public static void setCursorLocation(GridPane gp, final int row, final int column, boolean isInputCorrect)
+	{
+		if (isInputCorrect)
+		{
+			VirtualCursor.getNodeByRowColumnIndex(row, column, gp).setStyle("-fx-background-color:green");
+		}
+		else
+		{
+			VirtualCursor.getNodeByRowColumnIndex(row, column, gp).setStyle("-fx-background-color:red");
+		}
+	}
+	
+	public static Node getCurrentElement(GridPane gp)
+	{
+		return getNodeByRowColumnIndex(row, column, gp);
 	}
 
 	public Node getNodeByRowColumnIndex(final int row, final int column)
@@ -123,13 +177,13 @@ public class VirtualCursor
 
 	public void ignoreBlank()
 	{
-		Label current = (Label)getNodeByRowColumnIndex(getLocation_row(), getLocation_col() + 1, gridPane);
+		Label current = (Label) getNodeByRowColumnIndex(getLocation_row(), getLocation_col() + 1, gridPane);
 		while (current != null && current.getText().charAt(0) == ' ')
 		{
 			column++;
 		}
 	}
-	
+
 	public void endOfPage()
 	{
 		// do something...
@@ -139,7 +193,7 @@ public class VirtualCursor
 		alert.setContentText("End of File!");
 
 		alert.showAndWait();
-		//System.exit(0);
+		// System.exit(0);
 	}
 
 }

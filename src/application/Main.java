@@ -137,8 +137,13 @@ public class Main extends Application
 		VirtualCursor.thisPage_line = 0;
 		GridPane gp = (GridPane) rootLayout.getCenter();
 		gp.getChildren().clear();
+		
+		KeyboardListener KBlistener = new KeyboardListener();
+		KBlistener.addKeyEvent(gp);
+		KBlistener.setGridPane(gp);
+		
 		gp.requestFocus();
-		for (int i = 0; i < settings.getLine() && i + previousline < sourceFile.size(); i++)
+		for (int i = 0; i < Settings.getLine() && i + previousline < sourceFile.size(); i++)
 		{
 			String currentLine = sourceFile.get(i + previousline);
 			for (int j = 0; j < currentLine.length(); j++)
@@ -150,7 +155,7 @@ public class Main extends Application
 			}
 			VirtualCursor.thisPage_line++;
 		}
-		setCursorLocation(gp, 0, 0, true);
+		VirtualCursor.setCursorLocation(gp, 0, 0, true);
 	}
 	
 	private void showWelcomeWords()
@@ -161,18 +166,7 @@ public class Main extends Application
 		showCurrentPage(0);
 	}
 	
-	public void setCursorLocation(GridPane gp, final int row, final int column, boolean isInputCorrect)
-	{
-		if (isInputCorrect)
-		{
-			VirtualCursor.getNodeByRowColumnIndex(row, column, gp).setStyle("-fx-background-color:green");
-		}
-		else
-		{
-			VirtualCursor.getNodeByRowColumnIndex(row, column, gp).setStyle("-fx-background-color:red");
-		}
-	}
-
+	
 	public static void main(String[] args)
 	{
 		launch(args);
