@@ -39,7 +39,7 @@ public class KeyboardListener
 		}
 		else
 		{
-			System.out.println(keyValue.length());
+			//System.out.println(keyValue.length());
 			if (keyValue.equals("ENTER"))
 			{
 				if (cursor.endOfLine())

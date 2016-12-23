@@ -4,6 +4,8 @@ package application.model;
 public class Settings
 {
 	private static int line = 15;//default setting
+	
+	public static boolean ignoreBlanks = true;
 		
 	public static int getLine()
 	{

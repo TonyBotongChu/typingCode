@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import application.model.Settings;
 import application.view.*;
 
@@ -28,9 +29,7 @@ public class Main extends Application
 	// this ArrayList is to store the source file in lines
 	private ArrayList<String> sourceFile = new ArrayList<String>();
 
-	//private VirtualCursor cursor = new VirtualCursor(this);
-
-	Settings settings = new Settings();
+	//Settings settings = new Settings();
 
 	public Stage getPrimaryStage()
 	{
@@ -133,10 +132,12 @@ public class Main extends Application
 
 	private void showCurrentPage(int previousline)
 	{// the int previousline is the num of lines already read by the program
+		
 		//System.out.println(Settings.getLine());
-		VirtualCursor.thisPage_line = 0;
 		GridPane gp = (GridPane) rootLayout.getCenter();
 		gp.getChildren().clear();
+		
+		VirtualCursor cursor = new VirtualCursor(gp);
 		
 		KeyboardListener KBlistener = new KeyboardListener();
 		KBlistener.addKeyEvent(gp);
@@ -150,12 +151,13 @@ public class Main extends Application
 			{
 				Label t = new Label(String.valueOf(currentLine.charAt(j)));
 				t.setStyle("-fx-background-color: transparent");
+				t.setTextFill(Color.BLACK);
 				GridPane.setHalignment(t, HPos.CENTER);
 				gp.add(t, j, i);
 			}
-			VirtualCursor.thisPage_line++;
+			cursor.addNewThisPageLine();
 		}
-		VirtualCursor.setCursorLocation(gp, 0, 0, true);
+		cursor.resetCursorLocation();
 	}
 	
 	private void showWelcomeWords()
