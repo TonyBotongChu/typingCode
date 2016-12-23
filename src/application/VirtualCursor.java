@@ -28,6 +28,11 @@ public class VirtualCursor
 		//thisPage_line = 0;
 	}
 	
+	public void clearThisPageLine()
+	{
+		thisPage_line = 0;
+	}
+	
 	public void addNewThisPageLine()
 	{
 		thisPage_line ++;
@@ -38,6 +43,7 @@ public class VirtualCursor
 		removeCursor();
 		row = 0;
 		column = 0;
+		newLine();
 		showCursor();
 	}
 
@@ -87,8 +93,8 @@ public class VirtualCursor
 		if (endOfLine())
 		{
 			row++;
-			// System.out.println("row"+row);
-			// System.out.println("line"+thisPage_line);
+//			System.out.println("row"+row);
+//			System.out.println("line"+thisPage_line);
 			if (row >= Settings.getLine() || row >= thisPage_line)
 			{
 				isPageEnd = true;
@@ -198,15 +204,24 @@ public class VirtualCursor
 	{
 		if (!Settings.ignoreBlanks)
 			return;
-		Label current = (Label) getCurrentElement(gridPane);
-		while (current != null && current.getText().charAt(0) == ' ')
+		while (getCurrentElement(gridPane) != null && ((Label) getCurrentElement(gridPane)).getText().charAt(0) == ' ')
 		{
+//			System.out.println("row:"+row);
+//			System.out.println("col:"+column);
 			moveCursor();
 		}
 	}
 	
+	public void newLine()
+	{
+		ignoreBlank();
+	}
+	
 	public boolean endOfLine()
 	{
+		Label current = (Label)getCurrentElement(gridPane);
+		if (current.getText().length() != 1)
+			return true;
 		return getNodeByRowColumnIndex(getLocation_row(), getLocation_col() + 1) == null;
 	}
 
@@ -219,7 +234,6 @@ public class VirtualCursor
 		alert.setContentText("End of File!");
 
 		alert.showAndWait();
-		// System.exit(0);
 	}
 
 }

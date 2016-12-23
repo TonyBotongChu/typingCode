@@ -138,6 +138,7 @@ public class Main extends Application
 		gp.getChildren().clear();
 		
 		VirtualCursor cursor = new VirtualCursor(gp);
+		cursor.clearThisPageLine();
 		
 		KeyboardListener KBlistener = new KeyboardListener();
 		KBlistener.addKeyEvent(gp);
@@ -149,6 +150,12 @@ public class Main extends Application
 			String currentLine = sourceFile.get(i + previousline);
 			for (int j = 0; j < currentLine.length(); j++)
 			{
+				if (j == currentLine.length()-1)
+				{
+					Label eol = new Label("  ");
+					gp.add(eol, j, i);
+					continue;
+				}
 				Label t = new Label(String.valueOf(currentLine.charAt(j)));
 				t.setStyle("-fx-background-color: transparent");
 				t.setTextFill(Color.BLACK);
