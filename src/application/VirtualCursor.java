@@ -19,23 +19,23 @@ public class VirtualCursor
 	private static int thisPage_line = 0;
 
 	private static GridPane gridPane;
-	
+
 	public static boolean isInputCorrect = true;
 
 	public VirtualCursor(GridPane gp)
 	{
 		VirtualCursor.gridPane = gp;
-		//thisPage_line = 0;
+		// thisPage_line = 0;
 	}
-	
+
 	public void clearThisPageLine()
 	{
 		thisPage_line = 0;
 	}
-	
+
 	public void addNewThisPageLine()
 	{
-		thisPage_line ++;
+		thisPage_line++;
 	}
 
 	public void resetCursorLocation()
@@ -66,41 +66,50 @@ public class VirtualCursor
 	{
 		VirtualCursor.column = column;
 	}
-	
+
 	public void removeCursor()
 	{
-		//Node temp = getNodeByRowColumnIndex(getLocation_row(), getLocation_col());
+		// Node temp = getNodeByRowColumnIndex(getLocation_row(),
+		// getLocation_col());
 		Node temp = getCurrentElement(gridPane);
-		temp.setStyle("-fx-background-color: transparent");
-		((Label)temp).setTextFill(Color.BLACK);
+		if (temp != null)
+		{
+			temp.setStyle("-fx-background-color: transparent");
+			((Label) temp).setTextFill(Color.BLACK);
+		}
 	}
-	
+
 	public void showCursor()
 	{
-		//Node temp = getNodeByRowColumnIndex(getLocation_row(), getLocation_col());
+		// Node temp = getNodeByRowColumnIndex(getLocation_row(),
+		// getLocation_col());
 		Node temp = getCurrentElement(gridPane);
 		temp.setStyle("-fx-background-color:green");
-		((Label)temp).setTextFill(Color.WHITE);
+		((Label) temp).setTextFill(Color.WHITE);
 	}
 
 	public void moveCursor()
 	{
 		boolean isPageEnd = false;
-		
+
 		// System.out.println(temp);
 		removeCursor();
 
 		if (endOfLine())
 		{
 			row++;
-//			System.out.println("row"+row);
-//			System.out.println("line"+thisPage_line);
+			column = 0;
+			// System.out.println("row"+row);
+			// System.out.println("line"+thisPage_line);
 			if (row >= Settings.getLine() || row >= thisPage_line)
 			{
 				isPageEnd = true;
 				endOfPage();
 			}
-			column = 0;
+			else
+			{
+				newLine();
+			}
 		}
 		else
 		{
@@ -112,8 +121,6 @@ public class VirtualCursor
 
 	public void moveCursor_backforward()
 	{
-		// to be written later
-
 		removeCursor();
 		if (getLocation_col() <= 0)
 		{
@@ -138,28 +145,6 @@ public class VirtualCursor
 		}
 		showCursor();
 	}
-
-//	public static void setCursorLocation(GridPane gp, int row, int column, boolean isInputCorrect)
-//	{//need to think about what will happen if row or column is larger than the children in GridPane
-//		//Will fix it later
-//		
-//		
-//		if (row < 0)
-//			row = 0;
-//		if (column < 0)
-//			column = 0;
-//		VirtualCursor.row = row;
-//		VirtualCursor.column = column;
-//		
-//		if (isInputCorrect)
-//		{
-//			VirtualCursor.getNodeByRowColumnIndex(row, column, gp).setStyle("-fx-background-color:green");
-//		}
-//		else
-//		{
-//			VirtualCursor.getNodeByRowColumnIndex(row, column, gp).setStyle("-fx-background-color:red");
-//		}
-//	}
 
 	public static Node getCurrentElement(GridPane gp)
 	{
@@ -206,20 +191,20 @@ public class VirtualCursor
 			return;
 		while (getCurrentElement(gridPane) != null && ((Label) getCurrentElement(gridPane)).getText().charAt(0) == ' ')
 		{
-//			System.out.println("row:"+row);
-//			System.out.println("col:"+column);
+			// System.out.println("row:"+row);
+			// System.out.println("col:"+column);
 			moveCursor();
 		}
 	}
-	
+
 	public void newLine()
 	{
 		ignoreBlank();
 	}
-	
+
 	public boolean endOfLine()
 	{
-		Label current = (Label)getCurrentElement(gridPane);
+		Label current = (Label) getCurrentElement(gridPane);
 		if (current.getText().length() != 1)
 			return true;
 		return getNodeByRowColumnIndex(getLocation_row(), getLocation_col() + 1) == null;
