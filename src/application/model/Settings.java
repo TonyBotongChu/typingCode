@@ -4,6 +4,20 @@ package application.model;
 public class Settings
 {
 	private static int line = 15;//default setting
+	private static int TABINC = 4;
+	
+	public static int getTABINC()
+	{
+		return TABINC;
+	}
+	
+	public static void setTABINC(int tabinc)
+	{
+		if (tabinc > 0)
+		{
+			TABINC = tabinc;
+		}
+	}
 	
 	public static boolean ignoreBlanks = true;
 		

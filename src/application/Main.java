@@ -101,7 +101,7 @@ public class Main extends Application
 			while ((tempString = reader.readLine()) != null)
 			{
 				tempString += "\n";
-				sourceFile.add(tempString);
+				sourceFile.add(ToolPacks.TAB2BLANK(tempString));
 				// code for debug only, please commit it off before release
 				// System.out.print(tempString);
 			}
