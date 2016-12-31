@@ -9,8 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
-//import application.model.*;
-
 public class VirtualCursor
 {
 	private static int row = 0;
