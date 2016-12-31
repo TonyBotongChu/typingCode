@@ -1,13 +1,13 @@
 package application;
 
+import application.model.Settings;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.*;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import application.model.*;
 
 //import application.model.*;
 
