@@ -2,7 +2,7 @@ package application.view;
 
 
 import javafx.fxml.FXML;
-import javafx.scene.*;
+//import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
