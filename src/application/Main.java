@@ -128,7 +128,7 @@ public class Main extends Application
 		showCurrentPage(0);
 		
 		// for debug only
-		ToolPacks.codeStatistic(sourceFile);
+		//ToolPacks.codeStatistic(sourceFile);
 
 		return;
 	}

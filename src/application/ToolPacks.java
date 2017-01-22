@@ -6,6 +6,9 @@ package application;
 
 import java.util.ArrayList;
 
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
+import javafx.scene.layout.GridPane;
 import application.model.*;
 
 public class ToolPacks
@@ -31,6 +34,22 @@ public class ToolPacks
 		return s;
 	}
 
+	public static Node getNodeByRowColumnIndex(final int row, final int column, GridPane gridPane)
+	{
+		Node result = null;
+		ObservableList<Node> childrens = gridPane.getChildren();
+
+		for (Node node : childrens)
+		{
+			if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column)
+			{
+				result = node;
+				break;
+			}
+		}
+
+		return result;
+	}
 	public static CodeStatistic codeStatistic(ArrayList<String> sourceFile)
 	{
 		// This function is transferred from c++. For unknown reasons, it will cause IndexOutOfRange error.
@@ -50,7 +69,7 @@ public class ToolPacks
 				i = 0;
 				bCode = 0;            //该行没有代码
 		        bZs = 0;              //该行没有注释
-		        if (bXgx != 0)             //bXgx 斜杠星注释标记
+		        if (bXgx != 0)        //bXgx 斜杠星注释标记
 		            bZs = 1;          //该行有注释
 		        //过滤无效符号
 		        while (line.charAt(i) == ' ' || line.charAt(i) == '\t' || line.charAt(i) == '\r' || line.charAt(i) == '\n')

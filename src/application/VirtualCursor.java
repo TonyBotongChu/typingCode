@@ -1,7 +1,6 @@
 package application;
 
-import application.model.Settings;
-import javafx.collections.ObservableList;
+import application.model.*;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -146,42 +145,15 @@ public class VirtualCursor
 
 	public static Node getCurrentElement(GridPane gp)
 	{
-		return getNodeByRowColumnIndex(row, column, gp);
+		return ToolPacks.getNodeByRowColumnIndex(row, column, gp);
 	}
 
 	public Node getNodeByRowColumnIndex(final int row, final int column)
 	{
-		Node result = null;
-		ObservableList<Node> childrens = gridPane.getChildren();
-
-		for (Node node : childrens)
-		{
-			if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column)
-			{
-				result = node;
-				break;
-			}
-		}
-
-		return result;
+		return ToolPacks.getNodeByRowColumnIndex(row, column, gridPane);
 	}
 
-	public static Node getNodeByRowColumnIndex(final int row, final int column, GridPane gridPane)
-	{
-		Node result = null;
-		ObservableList<Node> childrens = gridPane.getChildren();
-
-		for (Node node : childrens)
-		{
-			if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column)
-			{
-				result = node;
-				break;
-			}
-		}
-
-		return result;
-	}
+	
 
 	public void ignoreBlank()
 	{
