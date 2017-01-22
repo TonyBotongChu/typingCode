@@ -194,7 +194,7 @@ public class VirtualCursor
 			moveCursor();
 		}
 	}
-
+	
 	public void newLine()
 	{
 		ignoreBlank();

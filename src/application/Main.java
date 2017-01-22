@@ -19,7 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import application.model.Settings;
+import application.model.*;
 import application.view.*;
 
 public class Main extends Application
@@ -126,6 +126,9 @@ public class Main extends Application
 			}
 		}
 		showCurrentPage(0);
+		
+		// for debug only
+		ToolPacks.codeStatistic(sourceFile);
 
 		return;
 	}

@@ -20,6 +20,7 @@ public class Settings
 	}
 	
 	public static boolean ignoreBlanks = true;
+	public static boolean ignoreCommit = true;
 		
 	public static int getLine()
 	{
