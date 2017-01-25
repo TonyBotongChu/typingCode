@@ -22,6 +22,7 @@ public class RootLayoutController
 		this.mainApp = mainApp;
 	}
 
+	@FXML
 	private void moveCursor()
 	{		
 		GridPane gp = (GridPane) mainApp.getRootLayout().getCenter();
@@ -71,6 +72,5 @@ public class RootLayoutController
 	{
 		// This function will be used to start the timer. But at present I will
 		// use it to do something else.
-		moveCursor();
 	}
 }
