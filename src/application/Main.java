@@ -29,7 +29,27 @@ public class Main extends Application
 	// this ArrayList is to store the source file in lines
 	private ArrayList<String> sourceFile = new ArrayList<String>();
 
-	//Settings settings = new Settings();
+	private int NumOfPage = 1;
+	private int CurrentPage = 1;
+	
+	public void setCurrentPage(int page)
+	{
+		if (page < 0)
+			page = 0;
+		else if (page > NumOfPage)
+			page = NumOfPage;
+		CurrentPage = page;
+	}
+	
+	public int getCurrentPage()
+	{
+		return CurrentPage;
+	}
+
+	public int getNumOfPage()
+	{
+		return NumOfPage;
+	}
 
 	public Stage getPrimaryStage()
 	{
@@ -40,7 +60,7 @@ public class Main extends Application
 	{
 		return rootLayout;
 	}
-	
+
 	public ArrayList<String> getSourceFile()
 	{
 		return sourceFile;
@@ -74,7 +94,7 @@ public class Main extends Application
 			controller.setMainApp(this);
 
 			showWelcomeWords();
-			
+
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
@@ -124,36 +144,38 @@ public class Main extends Application
 					e1.printStackTrace();
 				}
 			}
+			NumOfPage = sourceFile.size() / Settings.getLine();
+			if (sourceFile.size() % Settings.getLine() != 0)
+				NumOfPage++;
+			//System.out.println("Num of Page : " + NumOfPage);
 		}
-		showCurrentPage(0);
-		
-		// for debug only
-		//ToolPacks.codeStatistic(sourceFile);
+		showCurrentPage(CurrentPage);
 
 		return;
 	}
 
-	private void showCurrentPage(int previousline)
+	public void showCurrentPage(int pageNumber)
 	{// the int previousline is the num of lines already read by the program
 		
-		//System.out.println(Settings.getLine());
+		pageNumber--;
+		// System.out.println(Settings.getLine());
 		GridPane gp = (GridPane) rootLayout.getCenter();
 		gp.getChildren().clear();
-		
+
 		VirtualCursor cursor = new VirtualCursor(gp);
 		cursor.clearThisPageLine();
-		
+
 		KeyboardListener KBlistener = new KeyboardListener();
 		KBlistener.addKeyEvent(gp);
 		KBlistener.setGridPane(gp);
-		
+
 		gp.requestFocus();
-		for (int i = 0; i < Settings.getLine() && i + previousline < sourceFile.size(); i++)
+		for (int i = 0; i < Settings.getLine() && i + pageNumber * Settings.getLine() < sourceFile.size(); i++)
 		{
-			String currentLine = sourceFile.get(i + previousline);
+			String currentLine = sourceFile.get(i + pageNumber * Settings.getLine());
 			for (int j = 0; j < currentLine.length(); j++)
 			{
-				if (j == currentLine.length()-1)
+				if (j == currentLine.length() - 1)
 				{
 					Label eol = new Label("  ");
 					gp.add(eol, j, i);
@@ -169,16 +191,16 @@ public class Main extends Application
 		}
 		cursor.resetCursorLocation();
 	}
-	
+
 	private void showWelcomeWords()
 	{
 		sourceFile.clear();
 		sourceFile.add("Welcome\n");
 		sourceFile.add("Words");
-		showCurrentPage(0);
+		NumOfPage = 1;
+		showCurrentPage(CurrentPage);
 	}
-	
-	
+
 	public static void main(String[] args)
 	{
 		launch(args);

@@ -2,8 +2,6 @@ package application;
 
 import application.model.*;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -18,6 +16,9 @@ public class VirtualCursor
 	private static GridPane gridPane;
 
 	public static boolean isInputCorrect = true;
+
+	// lock the cursor to prevent it from moving
+	public static boolean CursorLock = false;
 
 	public VirtualCursor(GridPane gp)
 	{
@@ -41,6 +42,7 @@ public class VirtualCursor
 		row = 0;
 		column = 0;
 		newLine();
+		CursorLock = false;
 		showCursor();
 	}
 
@@ -87,6 +89,12 @@ public class VirtualCursor
 
 	public void moveCursor()
 	{
+		// If the cursor is locked, refuse to move.
+		if (CursorLock)
+		{
+			System.out.println("Fail to move cursor: The cursor is locked.");
+			return;
+		}
 		boolean isPageEnd = false;
 
 		// System.out.println(temp);
@@ -101,7 +109,7 @@ public class VirtualCursor
 			if (row >= Settings.getLine() || row >= thisPage_line)
 			{
 				isPageEnd = true;
-				endOfPage();
+				ToolPacks.endOfPage();
 			}
 			else
 			{
@@ -118,6 +126,12 @@ public class VirtualCursor
 
 	public void moveCursor_backforward()
 	{
+		// If the cursor is locked, refuse to move.
+		if (CursorLock)
+		{
+			System.out.println("Fail to move cursor backforward: The cursor is locked.");
+			return;
+		}
 		removeCursor();
 		if (getLocation_col() <= 0)
 		{
@@ -153,20 +167,16 @@ public class VirtualCursor
 		return ToolPacks.getNodeByRowColumnIndex(row, column, gridPane);
 	}
 
-	
-
 	public void ignoreBlank()
 	{
 		if (!Settings.ignoreBlanks)
 			return;
 		while (getCurrentElement(gridPane) != null && ((Label) getCurrentElement(gridPane)).getText().charAt(0) == ' ')
 		{
-			// System.out.println("row:"+row);
-			// System.out.println("col:"+column);
 			moveCursor();
 		}
 	}
-	
+
 	public void newLine()
 	{
 		ignoreBlank();
@@ -178,17 +188,6 @@ public class VirtualCursor
 		if (current.getText().length() != 1)
 			return true;
 		return getNodeByRowColumnIndex(getLocation_row(), getLocation_col() + 1) == null;
-	}
-
-	public void endOfPage()
-	{
-		// do something...
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Caution");
-		alert.setHeaderText(null);
-		alert.setContentText("End of File!");
-
-		alert.showAndWait();
 	}
 
 }

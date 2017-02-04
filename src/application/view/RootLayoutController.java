@@ -38,6 +38,8 @@ public class RootLayoutController
 		File file = fileChooser.showOpenDialog(mainApp.getPrimaryStage());
 		if (file != null)
 			mainApp.loadDataFromFile(file);
+		currentPage.setText("1");
+		totalPage.setText(String.valueOf(mainApp.getNumOfPage()));
 	}
 
 	@FXML
@@ -65,12 +67,35 @@ public class RootLayoutController
 	}
 
 	@FXML
-	private Button pause;
-
-	@FXML
 	private void startTimer()
 	{
 		// This function will be used to start the timer. But at present I will
 		// use it to do something else.
 	}
+	
+	@FXML
+	private void PreviousPage()
+	{
+		if (mainApp.getCurrentPage() <= 1)
+			return;
+		mainApp.setCurrentPage(mainApp.getCurrentPage()-1);
+		mainApp.showCurrentPage(mainApp.getCurrentPage());
+		currentPage.setText(String.valueOf(mainApp.getCurrentPage()));
+	}
+	
+	@FXML
+	private void NextPage()
+	{
+		if (mainApp.getCurrentPage() >= mainApp.getNumOfPage())
+			return;
+		mainApp.setCurrentPage(mainApp.getCurrentPage()+1);
+		mainApp.showCurrentPage(mainApp.getCurrentPage());
+		currentPage.setText(String.valueOf(mainApp.getCurrentPage()));
+	}
+	
+	@FXML
+	private Label currentPage;
+	
+	@FXML
+	private Label totalPage;
 }

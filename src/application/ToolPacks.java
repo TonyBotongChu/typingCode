@@ -4,10 +4,10 @@
  */
 package application;
 
-import java.util.ArrayList;
-
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import application.model.*;
 
@@ -49,5 +49,22 @@ public class ToolPacks
 		}
 
 		return result;
+	}
+	
+	public static void endOfPage()
+	{
+		// do something...
+		VirtualCursor.CursorLock = true;
+		endOfFile();
+	}
+	
+	public static void endOfFile()
+	{
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Caution");
+		alert.setHeaderText(null);
+		alert.setContentText("End of File!");
+
+		alert.showAndWait();
 	}
 }

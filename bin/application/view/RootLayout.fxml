@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
@@ -29,11 +30,46 @@
       </MenuBar>
    </top>
    <right>
-      <VBox prefHeight="571.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="571.0" prefWidth="200.0" spacing="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Label" />
-            <Button fx:id="pause" mnemonicParsing="false" onAction="#moveCursor" text="Skip" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <VBox prefHeight="95.0" prefWidth="198.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+                     <children>
+                        <Label text="Time:" />
+                        <Label text="Label" />
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <VBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label text="Get stucked?" />
+                        <Label text="Press this button to skip" />
+                        <Button fx:id="pause" mnemonicParsing="false" onAction="#moveCursor" text="Skip" />
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <HBox alignment="BOTTOM_CENTER" prefHeight="190.0" prefWidth="200.0" spacing="10.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#PreviousPage" text="←" />
+                        <Label fx:id="currentPage" text="0" />
+                        <Label text="/" />
+                        <Label fx:id="totalPage" text="0" />
+                        <Button mnemonicParsing="false" onAction="#NextPage" text="→" />
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
          </children>
+         <BorderPane.margin>
+            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+         </BorderPane.margin>
       </VBox>
    </right>
 </BorderPane>
