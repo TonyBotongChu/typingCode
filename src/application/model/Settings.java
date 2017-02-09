@@ -12,6 +12,7 @@ public class Settings
 		Settings.loadProperties();
 	}
 
+	// the file that stores global preferences
 	static String profilepath = "preferences.data";
 	private static Properties props = new Properties();
 	private static ArrayList<String> PreferenceList = new ArrayList<String>();

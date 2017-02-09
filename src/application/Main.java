@@ -70,7 +70,7 @@ public class Main extends Application
 	@Override
 	public void start(Stage primaryStage)
 	{
-		//primaryStage.setOnCloseRequest(new WindowsCloseEvent(primaryStage));
+		primaryStage.setOnCloseRequest(new WindowsCloseEvent(primaryStage));
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("typingCode - demo");
 
