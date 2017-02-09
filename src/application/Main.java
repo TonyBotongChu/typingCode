@@ -24,6 +24,7 @@ import application.view.*;
 
 public class Main extends Application
 {
+	Settings s = new Settings();
 	private Stage primaryStage;
 	private BorderPane rootLayout;
 	// this ArrayList is to store the source file in lines
@@ -31,7 +32,7 @@ public class Main extends Application
 
 	private int NumOfPage = 1;
 	private int CurrentPage = 1;
-	
+
 	public void setCurrentPage(int page)
 	{
 		if (page < 0)
@@ -40,7 +41,7 @@ public class Main extends Application
 			page = NumOfPage;
 		CurrentPage = page;
 	}
-	
+
 	public int getCurrentPage()
 	{
 		return CurrentPage;
@@ -69,7 +70,7 @@ public class Main extends Application
 	@Override
 	public void start(Stage primaryStage)
 	{
-
+		//primaryStage.setOnCloseRequest(new WindowsCloseEvent(primaryStage));
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("typingCode - demo");
 
@@ -122,7 +123,7 @@ public class Main extends Application
 			{
 				tempString += "\n";
 				sourceFile.add(ToolPacks.TAB2BLANK(tempString));
-				// code for debug only, please commit it off before release
+				// code for debug only, please comment it off before release
 				// System.out.print(tempString);
 			}
 			reader.close();
@@ -147,7 +148,7 @@ public class Main extends Application
 			NumOfPage = sourceFile.size() / Settings.getLine();
 			if (sourceFile.size() % Settings.getLine() != 0)
 				NumOfPage++;
-			//System.out.println("Num of Page : " + NumOfPage);
+			// System.out.println("Num of Page : " + NumOfPage);
 		}
 		showCurrentPage(CurrentPage);
 
@@ -156,7 +157,7 @@ public class Main extends Application
 
 	public void showCurrentPage(int pageNumber)
 	{// the int previousline is the num of lines already read by the program
-		
+
 		pageNumber--;
 		// System.out.println(Settings.getLine());
 		GridPane gp = (GridPane) rootLayout.getCenter();

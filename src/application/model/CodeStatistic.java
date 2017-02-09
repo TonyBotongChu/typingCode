@@ -2,13 +2,13 @@ package application.model;
 
 public class CodeStatistic
 {
-	// num of commits
+	// num of comments
 	public int nZs;
-	// num of direct codes (codes without commits)
+	// num of direct codes (codes without comments)
 	public int nDm;
 	// num of blank lines
 	public int nKh;
-	// num of mixed codes (codes with commits)
+	// num of mixed codes (codes with comments)
 	public int nGg;
 	// num of functions
 	public int nHs;

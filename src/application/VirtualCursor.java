@@ -169,7 +169,7 @@ public class VirtualCursor
 
 	public void ignoreBlank()
 	{
-		if (!Settings.ignoreBlanks)
+		if (!Settings.ignoreBlanks())
 			return;
 		while (getCurrentElement(gridPane) != null && ((Label) getCurrentElement(gridPane)).getText().charAt(0) == ' ')
 		{
