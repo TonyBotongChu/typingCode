@@ -69,7 +69,9 @@ public class RootLayoutController
 			Parent root1 = (Parent) fxmlLoader.load();
 			Stage stage = new Stage();
 			stage.setScene(new Scene(root1));  
-//            stage.show();
+            stage.show();
+            PreferenceLayoutController pcontroller = (PreferenceLayoutController)fxmlLoader.getController();
+            pcontroller.FocusOnAnchorPane();
 		}
 		catch (IOException e)
 		{

@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.PreferenceLayoutController">
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.PreferenceLayoutController">
    <children>
       <VBox prefHeight="600.0" prefWidth="400.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -24,18 +24,18 @@
                               <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                  <children>
                                     <Label text="TAB size in spaces:" />
-                                    <TextField prefWidth="40.0" />
+                                    <TextField fx:id="TABINC" prefWidth="40.0" />
                                  </children>
                               </HBox>
                               <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                  <children>
                                     <Label text="Number of lines per page:" />
-                                    <TextField prefWidth="40.0" />
+                                    <TextField fx:id="LinePerPage" prefWidth="40.0" />
                                  </children>
                               </HBox>
                               <HBox prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <CheckBox mnemonicParsing="false" text="Automatically skip spaces at head of the line" />
+                                    <CheckBox fx:id="ignoreBlanks" mnemonicParsing="false" text="Automatically skip spaces at head of the line" />
                                  </children>
                               </HBox>
                            </children>
@@ -45,7 +45,7 @@
                   <Separator prefWidth="200.0" />
                   <HBox alignment="BOTTOM_CENTER" prefHeight="50.0" prefWidth="200.0" spacing="60.0">
                      <children>
-                        <Button mnemonicParsing="false" text="  OK  " />
+                        <Button mnemonicParsing="false" onAction="#handleOK" text="  OK  " />
                         <Button fx:id="cancel" mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
                      </children>
                   </HBox>
