@@ -67,6 +67,12 @@ public class Main extends Application
 		return sourceFile;
 	}
 
+	public GridPane getGridPane()
+	{
+		return (GridPane) rootLayout.getCenter();
+		// return (GridPane)((Pane)rootLayout.getCenter()).getChildren();
+	}
+
 	@Override
 	public void start(Stage primaryStage)
 	{
@@ -86,10 +92,12 @@ public class Main extends Application
 			loader.setLocation(Main.class.getResource("view/RootLayout.fxml"));
 			rootLayout = (BorderPane) loader.load();
 
+			// Pane center = (Pane)rootLayout.getCenter();
+			// center.getChildren().add(new GridPane());
 			rootLayout.setCenter(new GridPane());
 			// This code is to show the border of code area. Will be deleted if
 			// necessary.
-			rootLayout.getCenter().setStyle("-fx-border-color:black");
+			getGridPane().setStyle("-fx-border-color:black");
 
 			RootLayoutController controller = loader.getController();
 			controller.setMainApp(this);
@@ -99,6 +107,8 @@ public class Main extends Application
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
+			// fix window size
+			primaryStage.setResizable(false);
 			primaryStage.show();
 		}
 		catch (IOException e)
@@ -109,7 +119,7 @@ public class Main extends Application
 
 	public void loadDataFromFile(File file)
 	{
-		GridPane gp = (GridPane) rootLayout.getCenter();
+		GridPane gp = getGridPane();
 		// clear the GridPane and FileReader to avoid conflicts
 		gp.getChildren().clear();
 		sourceFile.clear();
@@ -156,7 +166,7 @@ public class Main extends Application
 	}
 
 	public void showCurrentPage(int pageNumber)
-	{// the int previousline is the num of lines already read by the program
+	{
 
 		pageNumber--;
 		// System.out.println(Settings.getLine());

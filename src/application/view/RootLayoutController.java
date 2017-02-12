@@ -1,7 +1,9 @@
 package application.view;
 
 import javafx.fxml.FXML;
-//import javafx.scene.*;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
@@ -9,6 +11,7 @@ import application.*;
 
 import java.io.*;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class RootLayoutController
 {
@@ -23,7 +26,7 @@ public class RootLayoutController
 	@FXML
 	private void moveCursor()
 	{
-		GridPane gp = (GridPane) mainApp.getRootLayout().getCenter();
+		GridPane gp = (GridPane) mainApp.getGridPane();
 		VirtualCursor cursor = new VirtualCursor(gp);
 		// System.out.println(mainApp.getRootLayout().getCenter());
 		cursor.moveCursor();
@@ -55,6 +58,23 @@ public class RootLayoutController
 		alert.setContentText("Author: " + getAuthor());
 
 		alert.showAndWait();
+	}
+	
+	@FXML
+	private void handlePreference()
+	{
+		try
+		{
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PreferenceLayout.fxml"));
+			Parent root1 = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setScene(new Scene(root1));  
+//            stage.show();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	private static String getAuthor()
