@@ -1,5 +1,5 @@
 #Global Settings
 #Tue Mar 07 21:47:34 CST 2017
 ignoreBlanks=true
-linePerPage=5
+linePerPage=25
 TABINC=4
