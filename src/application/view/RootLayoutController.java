@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 
 public class RootLayoutController
 {
+	
 	private Main mainApp;
 
 	// Is called by the main application to give a reference back to itself.
@@ -110,11 +111,11 @@ public class RootLayoutController
 	}
 	
 	@FXML
-	private void pauseTimer()
+	public void pauseTimer()
 	{
 		//just pause the stoptimer
 		String str = ktimer.getSspTime().get();
-		System.out.println(ktimer.getTime()/1000);//show time when stopwatch pause
+		//System.out.println(ktimer.getTime()/1000);//show time when stopwatch pause
 		ktimer.stopTimer();
 		timeLabel.setText(str);
 	}

@@ -3,17 +3,22 @@ package application;
 import application.model.*;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
 public class VirtualCursor
 {
+	ToolPacks toolPacks = new ToolPacks();
 	private static int row = 0;
 	private static int column = 0;
 
 	private static int thisPage_line = 0;
 
 	private static GridPane gridPane;
+	
+	// When the first key is typed, start the timer.
+	public static boolean isFirstStrike = true;
 
 	public static boolean isInputCorrect = true;
 
@@ -109,7 +114,7 @@ public class VirtualCursor
 			if (row >= Settings.getLine() || row >= thisPage_line)
 			{
 				isPageEnd = true;
-				ToolPacks.endOfPage();
+				toolPacks.endOfPage();
 			}
 			else
 			{

@@ -5,11 +5,19 @@
 package application;
 
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+
 import application.model.*;
+import application.view.PageSummaryController;
 
 public class ToolPacks
 {
@@ -51,11 +59,45 @@ public class ToolPacks
 		return result;
 	}
 	
-	public static void endOfPage()
+	public void endOfPage()
 	{
 		// do something...
 		VirtualCursor.CursorLock = true;
-		endOfFile();
+		showPageSummary();
+		VirtualCursor.isFirstStrike = true;
+	}
+	
+//	public static void showPageSummary()
+//	{
+//		Alert alert = new Alert(AlertType.INFORMATION);
+//		alert.setTitle("Lesson Summary");
+//		alert.setHeaderText(null);
+//		String TypeableCharacters = "Typeable Characters: " + UserData.getRightNumber() + "\n";
+//		String TypedCharacters = "Typed Characters: " + UserData.getInputNumber() + "\n";
+//		String UnproductiveStroke = "Unproductive Keystroke Overhead: " + (int)(UserData.getWrongNumber()/UserData.getRightNumber()) + "\n";
+//		String content = TypeableCharacters+TypedCharacters+UnproductiveStroke;
+//		alert.setContentText(content);
+//		
+//		alert.showAndWait();
+//	}
+	
+	public void showPageSummary()
+	{
+		try
+		{
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("view/PageSummaryLayout.fxml"));
+			Parent root1 = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setScene(new Scene(root1));  
+            stage.show();
+            PageSummaryController pcontroller = (PageSummaryController)fxmlLoader.getController();
+            pcontroller.initSummaryWindow(KTimer.getTime());
+            //pcontroller.FocusOnAnchorPane();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	public static void endOfFile()

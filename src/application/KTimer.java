@@ -13,7 +13,7 @@ public class KTimer
 	private SimpleDateFormat sdf = new SimpleDateFormat("mm:ss:S");
 	private String[] split;
 	private SimpleStringProperty sspTime;
-	private long time;
+	private static long time;
 	private Timer t = new Timer("Metronome", true);
 	private TimerTask tt;
 	boolean timing = false;
@@ -87,7 +87,7 @@ public class KTimer
 	 * + ":" + split[1] + ":" + (split[2].length() == 1 ? "0" + split[2] :
 	 * split[2].substring(0, 2))); }
 	 */
-	public synchronized long getTime()
+	public static synchronized long getTime()
 	{
 		return time;
 	}

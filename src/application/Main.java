@@ -188,7 +188,7 @@ public class Main extends Application
 			{
 				if (j == currentLine.length() - 1)
 				{
-					Label eol = new Label("  ");
+					Label eol = new Label("  ");// eol means "end of line" 
 					gp.add(eol, j, i);
 					continue;
 				}
@@ -201,6 +201,7 @@ public class Main extends Application
 			cursor.addNewThisPageLine();
 		}
 		cursor.resetCursorLocation();
+		UserData.resetUserData();
 	}
 
 	private void showWelcomeWords()

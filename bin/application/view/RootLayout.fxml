@@ -30,7 +30,7 @@
       </MenuBar>
    </top>
    <right>
-      <VBox prefHeight="571.0" prefWidth="200.0" spacing="100.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="571.0" prefWidth="200.0" spacing="60.0" BorderPane.alignment="CENTER">
          <children>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
@@ -39,17 +39,15 @@
                         <Label text="Time:" />
                         <Label fx:id="timeLabel" text="00:00:00" />
                         <Button mnemonicParsing="false" onAction="#startTimer" text="start" />
-                        <Button mnemonicParsing="false" onAction="#pauseTimer" text="pause" />
-                        <Button mnemonicParsing="false" onAction="#resumeTimer" text="resume" />
                         <Button mnemonicParsing="false" onAction="#resetTimer" text="reset" />
                      </children>
                   </VBox>
                </children>
             </AnchorPane>
-            <Separator prefWidth="200.0" />
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <VBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Separator prefWidth="200.0" />
+                  <VBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
                      <children>
                         <Label text="Untypable Key?" />
                         <Label text="Press this button to skip" />
@@ -58,7 +56,6 @@
                   </VBox>
                </children>
             </AnchorPane>
-            <Separator prefHeight="0.0" prefWidth="200.0" />
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
                   <HBox alignment="BOTTOM_CENTER" layoutY="65.0" prefHeight="105.0" prefWidth="200.0" spacing="10.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="65.0">
@@ -70,6 +67,7 @@
                         <Button mnemonicParsing="false" onAction="#NextPage" text="→" />
                      </children>
                   </HBox>
+                  <Separator prefHeight="0.0" prefWidth="200.0" valignment="BOTTOM" />
                </children>
             </AnchorPane>
          </children>
