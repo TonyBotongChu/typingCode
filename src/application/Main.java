@@ -207,8 +207,8 @@ public class Main extends Application
 	private void showWelcomeWords()
 	{
 		sourceFile.clear();
-		sourceFile.add("Welcome\n");
-		sourceFile.add("Words");
+		sourceFile.add("TypingCode is a software designed to help programmers to practice their typing.\n");
+		sourceFile.add("You can open any source file that can be opened in a notepad as your practice material.");
 		NumOfPage = 1;
 		showCurrentPage(CurrentPage);
 	}
