@@ -1,5 +1,5 @@
 #Global Settings
-#Sun Feb 12 16:23:38 CST 2017
+#Tue Mar 07 15:01:48 CST 2017
+linePerPage=25
 ignoreBlanks=true
-linePerPage=15
 TABINC=4

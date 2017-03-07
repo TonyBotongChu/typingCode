@@ -16,7 +16,7 @@
               <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
+          <Menu mnemonicParsing="false" text="Tools">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#handlePreference" text="Preferences" />
             </items>
@@ -37,7 +37,11 @@
                   <VBox prefHeight="95.0" prefWidth="198.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
                      <children>
                         <Label text="Time:" />
-                        <Label text="Label" />
+                        <Label fx:id="timeLabel" text="00:00:00" />
+                        <Button mnemonicParsing="false" onAction="#startTimer" text="start" />
+                        <Button mnemonicParsing="false" onAction="#pauseTimer" text="pause" />
+                        <Button mnemonicParsing="false" onAction="#resumeTimer" text="resume" />
+                        <Button mnemonicParsing="false" onAction="#resetTimer" text="reset" />
                      </children>
                   </VBox>
                </children>

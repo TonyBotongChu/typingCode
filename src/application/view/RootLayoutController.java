@@ -1,5 +1,7 @@
 package application.view;
 
+import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -85,14 +87,65 @@ public class RootLayoutController
 		String address = "Colleage of Software Engineering, BUAA.\n" + "Beijing, China.\n";
 		return name + "\n" + address;
 	}
+	@FXML
+	private Label timeLabel;
+	
+	private KTimer ktimer = new KTimer();
 
 	@FXML
 	private void startTimer()
 	{
-		// This function will be used to start the timer. But at present I will
-		// use it to do something else.
+		// This function will be used to start the timer. 
+		ktimer.startTimer(00);//show stoptimer
+		ktimer.getSspTime().addListener(new InvalidationListener() {		
+			public void invalidated(javafx.beans.Observable observable) {
+				Platform.runLater(new Runnable(){
+					public void run() {
+						// TODO Auto-generated method stub
+						timeLabel.setText(ktimer.getSspTime().get());
+					}	
+				});
+			}
+		});
+	}
+	
+	@FXML
+	private void pauseTimer()
+	{
+		//just pause the stoptimer
+		String str = ktimer.getSspTime().get();
+		System.out.println(ktimer.getTime()/1000);//show time when stopwatch pause
+		ktimer.stopTimer();
+		timeLabel.setText(str);
 	}
 
+	@FXML
+	private void resumeTimer()
+	{
+		//resume the stoptimer after pause
+		ktimer.startTimer(ktimer.getTime());
+		ktimer.getSspTime().addListener(new InvalidationListener() {		
+			public void invalidated(javafx.beans.Observable observable) {
+				// TODO Auto-generated method stub
+				Platform.runLater(new Runnable(){
+					public void run() {
+						// TODO Auto-generated method stub
+						timeLabel.setText(ktimer.getSspTime().get());
+					}	
+				});
+			}
+		});
+		//resumeTime
+	}
+	
+	@FXML
+	private void resetTimer()
+	{
+		//reset stoptimer
+		ktimer.stopit();
+		timeLabel.setText(ktimer.getSspTime().get());
+	}
+	
 	@FXML
 	private void PreviousPage()
 	{
